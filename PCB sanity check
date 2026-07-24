@@ -1,0 +1,18 @@
+from machine import Pin
+import time
+
+ir1 = Pin(0, Pin.IN, Pin.PULL_UP)
+ir2 = Pin(16, Pin.IN, Pin.PULL_UP)
+led = Pin("LED", Pin.OUT)
+
+while True:
+    beam1_broken = (ir1.value() == 0)
+    beam2_broken = (ir2.value() == 0)
+    print("ir1:", ir1.value(), "ir2:", ir2.value())  # raw pin readings
+
+    if beam1_broken or beam2_broken:
+        led.value(1)
+    else:
+        led.value(0)
+
+    time.sleep(0.2)
